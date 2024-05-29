@@ -40,7 +40,7 @@ class SQLPlag:
         return statements   
     
     
-    def levenshtein_distance(self, s1: str, s2: str) -> list:
+    def levenshtein_distance(self, s1: str, s2: str) -> int:
         if len(s1) < len(s2):
             return self.levenshtein_distance(s2, s1)
 
@@ -59,7 +59,7 @@ class SQLPlag:
 
         return previous_row[-1]
 
-    def similarity_percentage(self) -> float:
+    def similarity_percentage(self) -> int:
 
         query1 = self.ref_code.lower()
         query2 = self.candidate_code.lower()
@@ -72,4 +72,4 @@ class SQLPlag:
         max_length = max(len(parsed_query1), len(parsed_query2))
         
         similarity = 1 - distance / max_length
-        return similarity * 100
+        return int(similarity * 100)

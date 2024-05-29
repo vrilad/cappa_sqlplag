@@ -5,11 +5,12 @@ try:
    long_description = pypandoc.convert_file('README.md', 'rst')
    long_description = long_description.replace("\r","")  
 except(IOError, ImportError):
-    long_description = open('README.md').read()
+    with open('README.md', 'r', encoding='utf-8') as f:
+        long_description = f.read()
 
 setup(
     name='cappa_sqlplag',
-    version='0.2.1',
+    version='0.2.2',
     description='SQL-детектор плагиата, предназначенный для использования в комплексе автоматической проверки программ CAPPA',
     long_description=long_description,
     long_description_content_type='text/markdown',
