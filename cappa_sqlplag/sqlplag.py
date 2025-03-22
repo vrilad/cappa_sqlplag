@@ -1,4 +1,5 @@
 import re
+from difflib import SequenceMatcher
 
 class SQLPlag:
 
@@ -73,3 +74,24 @@ class SQLPlag:
         
         similarity = 1 - distance / max_length
         return int(similarity * 100)
+    
+    def tokenize(self, sql_query):
+        
+        tokens = re.findall(r"\w+|[^\w\s]", sql_query.lower())
+        return tokens
+
+    def cte_similarity_percentage(self) -> int:
+
+        query1 = self.ref_code.lower()
+        query2 = self.candidate_code.lower()
+
+        tokens1 = self.tokenize(query1)
+        tokens2 = self.tokenize(query2)
+
+        matcher = SequenceMatcher(None, tokens1, tokens2)
+        similarity_ratio = matcher.ratio()
+        
+        similarity = similarity_ratio * 100
+
+        return int(similarity)
+        

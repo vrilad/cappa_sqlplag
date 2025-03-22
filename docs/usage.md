@@ -3,11 +3,12 @@
 ```python
 import cappa_sqlplag
 
-raw_code1 = "Select name, id_author From users join authors on id_user = id_author where id_user in (Select max(id_user) From users) Group by id_user"
-raw_code2 = "Select name, id_author From authors join users on id_user = id_author where id_user = (Select max(id_user) From users) Group by id_user"
+raw_code1 = "Select distinct maker, price From Product, Printer Where Product.model = Printer.model and color = 'y' and price = (Select min(price) From Printer Where color = 'y')"
+raw_code2 = "Select distinct maker, price From Product, Printer Where color='y' and price=(Select min(price) From Printer Where color='y') and Product.model = Printer.model"
 
 sqlplag = cappa_sqlplag.SQLPlag(ref_code=raw_code1, candidate_code=raw_code2) 
-similarity = sqlplag.similarity_percentage()
+similarity = sqlplag.cte_similarity_percentage()
+
 print("Процент схожести:", similarity)
 ```
 
