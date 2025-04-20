@@ -10,7 +10,7 @@ except(IOError, ImportError):
 
 setup(
     name='cappa_sqlplag',
-    version='1.0.0',
+    version='1.1.0',
     description='SQL-детектор плагиата, предназначенный для использования в комплексе автоматической проверки программ CAPPA',
     long_description=long_description,
     long_description_content_type='text/markdown',
